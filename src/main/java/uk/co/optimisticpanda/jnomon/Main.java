@@ -1,4 +1,4 @@
-package uk.co.optimisticpanda.stdouttimer;
+package uk.co.optimisticpanda.jnomon;
 
 import static java.lang.System.currentTimeMillis;
 import static java.lang.annotation.ElementType.PACKAGE;
@@ -24,11 +24,13 @@ import rx.functions.Action1;
 import rx.observables.BlockingObservable;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
-import uk.co.optimisticpanda.stdouttimer.Input.Step.LineStep;
-import uk.co.optimisticpanda.stdouttimer.Input.Step.QuitStep;
-import uk.co.optimisticpanda.stdouttimer.Input.Step.TickStep;
+import uk.co.optimisticpanda.jnomon.Main.Step.LineStep;
+import uk.co.optimisticpanda.jnomon.Main.Step.QuitStep;
+import uk.co.optimisticpanda.jnomon.Main.Step.TickStep;
+import uk.co.optimisticpanda.jnomon.LineStepImpl;
+import uk.co.optimisticpanda.jnomon.TickStepImpl;
 
-public class Input {
+public class Main {
 
     public static void main(String[] args) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
