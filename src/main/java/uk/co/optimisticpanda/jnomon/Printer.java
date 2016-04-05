@@ -18,7 +18,7 @@ class Printer implements Action1<Step> {
     private Long start = currentTimeMillis();
     private Configuration configuration;
 
-    public Printer(PublishSubject<Integer> stopper, Configuration configuration) {
+    Printer(PublishSubject<Integer> stopper, Configuration configuration) {
         this.stopper = stopper;
         this.configuration = configuration;
     }
