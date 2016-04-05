@@ -21,6 +21,11 @@
 			<version>2.1.14</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.beust</groupId>
+			<artifactId>jcommander</artifactId>
+			<version>1.48</version>
+		</dependency>
 	</dependencies>
 
 	<build>
