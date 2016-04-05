@@ -21,8 +21,8 @@ This was an excuse to play with RxJava and as such this  only implements a subse
   High threshold. If the elapsed time for a line is equal to or higher than
   this value in millis, then the timestamp will be coloured red.
 
---medium=seconds
--m seconds
+--medium millis
+-m millis
 
   Medium threshold. Works just like the high threshold described above, but
   colors the timestamp bright yellow instead. Can be used in conjunction
