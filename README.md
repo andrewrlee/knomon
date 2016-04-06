@@ -6,9 +6,9 @@ Build and test by issuing the following:
 
   `./run-test.sh -b`
 
-Run by piping any command line program through the java executable, e.g:
+Run by piping any command line program through the java executable. For instance:
 
-  `mvn clean install | java -jar ./target/jnomon-0.0.1-SNAPSHOT.jar -m 200 -h 500`
+  `mvn clean install | ./jnomon -m 200 -h 500`
 
 ###Options
 
@@ -32,5 +32,4 @@ This was an excuse to play with RxJava and as such this  only implements a subse
 ###Additional Limitations/Bugs:
 
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
- * Minor (easy to fix!) bug, formatting of seconds is a bit skew-whiff for values over 10. 
 

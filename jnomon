@@ -1,0 +1,4 @@
+#!/bin/bash 
+
+DIR=`dirname "$(readlink -f "$0")"` 
+java -jar $DIR/target/jnomon-0.0.1-SNAPSHOT.jar "$@"
