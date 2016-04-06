@@ -6,6 +6,8 @@ Build and test by issuing the following:
 
   `./run-test.sh -b`
 
+[![asciicast](https://asciinema.org/a/1uextdlz8doz1jwu8m7vfgulj.png)](https://asciinema.org/a/1uextdlz8doz1jwu8m7vfgulj)
+
 Run by piping any command line program through the java executable. For instance:
 
   `mvn clean install | ./jnomon -m 200 -h 500`
