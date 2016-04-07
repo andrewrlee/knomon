@@ -1,6 +1,7 @@
 package uk.co.optimisticpanda.jnomon;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static rx.Observable.empty;
 import static rx.Observable.interval;
 import static rx.Observable.just;
 import static rx.schedulers.Schedulers.newThread;
@@ -31,7 +32,8 @@ public class Main {
                     .subscribeOn(Schedulers.io())
                     .concatWith(just(new QuitStep()));
 
-            Observable<Step> ticks = interval(100, MILLISECONDS)
+            Observable<Step> ticks = configuration.getRealTime()
+                    .map(time -> interval(time, MILLISECONDS)).orElse(empty())
                     .<Step> map(TickStepImpl::new)
                     .takeUntil(stopper)
                     .observeOn(newThread());
