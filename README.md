@@ -22,6 +22,15 @@ This was an excuse to play with RxJava and as such only currently implements a s
 All switches are optional and described below:
 
 ```
+
+--type=<elapsed-line|elapsed-total|absolute>        [default: elapsed-line]
+-t <elapsed-line|elapsed-total|absolute>
+
+  Type of timestamp to display.
+    elapsed-line: Seconds that displayed line was the last line.
+    elapsed-total: Seconds since the start of the process.
+    absolute: Absolute timestamp in UTC.
+
 --high millis
 -h millis
 

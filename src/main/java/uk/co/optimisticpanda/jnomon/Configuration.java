@@ -1,6 +1,11 @@
 package uk.co.optimisticpanda.jnomon;
 
+import static uk.co.optimisticpanda.jnomon.TimestampType.ELAPSED_LINE;
+
 import java.util.Optional;
+
+import uk.co.optimisticpanda.jnomon.TimestampType.TimestampTypeConverter;
+import uk.co.optimisticpanda.jnomon.formatter.OutputWriter;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -9,10 +14,17 @@ class Configuration {
 
     static Configuration read(final String... args) {
         Configuration result = new Configuration();
-        new JCommander(result, args);
+        JCommander commander = new JCommander(result, args);
+        if (result.help) {
+            commander.usage();
+        }
         return result;
     }
 
+    @Parameter(names = "--help", help = true,
+            description = "Show usage")
+    private boolean help;
+    
     @Parameter(names = { "-h", "--high" }, 
             description = "If the time is >= than this, in millis, then red highlight will be applied.")
     private Integer high;
@@ -25,6 +37,14 @@ class Configuration {
             description = "Increment to use when updating timestamp, in millis. `false` disables realtime entirely.")
     private String realTime = "500";
 
+    @Parameter(names = { "-t", "--type" },
+            converter = TimestampTypeConverter.class,
+            description = "Timestamp type to display:"
+            + "\n\t'elapsed-line': time since last line"
+            + "\n\t'elapsed-total': time since start of the process"
+            + "\n\t'absolute': Absolute timestamp in UTC")
+    private TimestampType type = ELAPSED_LINE;
+    
     Optional<Integer> getHigh() {
         return Optional.ofNullable(high);
     }
@@ -36,4 +56,14 @@ class Configuration {
     Optional<Long> getRealTime() {
         return Optional.of(realTime).filter(t -> !t.equalsIgnoreCase("false")).map(Long::parseLong);
     }
+    
+    OutputWriter getOutputWriter() {
+        ColourChooser colourChooser = ColourChooser.newConfigBasedColourChooser(this);
+        return type.getFormatterBuilder().build(colourChooser);
+    }
+    
+    boolean helpShown() {
+        return help;
+    }
+    
 }

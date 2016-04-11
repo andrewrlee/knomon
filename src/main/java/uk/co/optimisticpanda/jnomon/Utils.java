@@ -6,9 +6,9 @@ import java.io.IOException;
 import rx.Observable;
 import rx.Subscriber;
 
-class Utils {
+public class Utils {
 
-    enum Colour {
+    public enum Colour {
         WHITE_BG(47),
         WHITE_FG(37),
         RED_FG(31), 

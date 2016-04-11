@@ -23,6 +23,10 @@ public class Main {
 
         Configuration configuration = Configuration.read(args);
         
+        if (configuration.helpShown()) {
+            return;
+        }
+        
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             
             PublishSubject<Integer> stopper = PublishSubject.create();
@@ -42,5 +46,4 @@ public class Main {
             BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, configuration));
         }
     }
-
 }
