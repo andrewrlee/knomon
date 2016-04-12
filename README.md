@@ -4,7 +4,7 @@ Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](h
 
 ###Example: 
 
-[![asciicast](https://asciinema.org/a/1uextdlz8doz1jwu8m7vfgulj.png)](https://asciinema.org/a/1uextdlz8doz1jwu8m7vfgulj)
+[![asciicast](https://asciinema.org/a/4vnmdusrxre9oin1om4g9dpnh.png)](https://asciinema.org/a/4vnmdusrxre9oin1om4g9dpnh)
 
 ###Building/Running:
 
@@ -57,3 +57,4 @@ All switches are optional and described below:
 
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
  * Only tested to work on linux
+ * Doesn't print total time at the end
