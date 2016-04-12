@@ -1,19 +1,30 @@
 package uk.co.optimisticpanda.jnomon;
 
+import static uk.co.optimisticpanda.jnomon.Utils.Colour.WHITE_BG;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import rx.Observable;
 import rx.Subscriber;
 
 public class Utils {
 
+    public static final String BORDER = WHITE_BG.colourize(" ");
+    public static final DecimalFormat SECONDS_FORMAT =  new DecimalFormat("0.000");
+    
     public enum Colour {
         WHITE_BG(47),
-        WHITE_FG(37),
         RED_FG(31), 
         GREEN_FG(32), 
-        YELLOW_FG(33);
+        YELLOW_FG(33),
+        NO_COLOUR(-1) {
+            @Override
+            public String colourize(String text) {
+                return text;
+            }
+        };
 
         private final int code;
 

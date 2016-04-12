@@ -5,7 +5,7 @@ import static uk.co.optimisticpanda.jnomon.TimestampType.ELAPSED_LINE;
 import java.util.Optional;
 
 import uk.co.optimisticpanda.jnomon.TimestampType.TimestampTypeConverter;
-import uk.co.optimisticpanda.jnomon.formatter.OutputWriter;
+import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -57,9 +57,9 @@ class Configuration {
         return Optional.of(realTime).filter(t -> !t.equalsIgnoreCase("false")).map(Long::parseLong);
     }
     
-    OutputWriter getOutputWriter() {
+    EventListener getEventListener() {
         ColourChooser colourChooser = ColourChooser.newConfigBasedColourChooser(this);
-        return type.getFormatterBuilder().build(colourChooser);
+        return type.getEventListenerFactory().build(colourChooser);
     }
     
     boolean helpShown() {
