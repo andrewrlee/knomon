@@ -6,27 +6,28 @@ import rx.subjects.PublishSubject;
 import uk.co.optimisticpanda.jnomon.Step.LineStep;
 import uk.co.optimisticpanda.jnomon.Step.QuitStep;
 import uk.co.optimisticpanda.jnomon.Step.TickStep;
-import uk.co.optimisticpanda.jnomon.formatter.OutputWriter;
+import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 class Printer implements Action1<Step> {
     private final PublishSubject<Integer> stopper;
     private long start = currentTimeMillis(), processStart = currentTimeMillis();
-    private OutputWriter outputWriter;
+    private EventListener eventListener;
 
     Printer(PublishSubject<Integer> stopper, Configuration configuration) {
         this.stopper = stopper;
-        this.outputWriter = configuration.getOutputWriter();
+        this.eventListener = configuration.getEventListener();
+        System.out.println();
     }
     
     @Override
     public void call(Step step) {
         if (step instanceof TickStep) {
-            outputWriter.onUpdate(processStart, start);
+            eventListener.onUpdate(processStart, start);
         } else if (step instanceof QuitStep) {
             stopper.onCompleted();
-            outputWriter.onEnd();
+            eventListener.onEnd();
         } else {
-            outputWriter.onBefore(processStart, start, ((LineStep) step).getLine());
+            eventListener.onBefore(processStart, start, ((LineStep) step).getLine());
             start = currentTimeMillis();
         }
     }

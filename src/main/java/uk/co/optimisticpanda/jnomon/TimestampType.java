@@ -1,32 +1,34 @@
 package uk.co.optimisticpanda.jnomon;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
+import java.util.List;
 import java.util.Optional;
 
 import uk.co.optimisticpanda.jnomon.formatter.AbsoluteOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.ElapsedLineOutputWriter;
-import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalOutputWriter;
-import uk.co.optimisticpanda.jnomon.formatter.OutputWriter.OutputWriterBuilder;
+import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalWriter;
+import uk.co.optimisticpanda.jnomon.formatter.EventListener.EventListenerFactory;
 
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
 
-enum TimestampType {
+public enum TimestampType {
     ELAPSED_LINE("elapsed-line", ElapsedLineOutputWriter::new), 
-    ELAPSED_TOTAL("elapsed_total", ElapsedTotalOutputWriter::new), 
+    ELAPSED_TOTAL("elapsed-total", ElapsedTotalWriter::new), 
     ABSOLUTE("absolute", AbsoluteOutputWriter::new);
     
     private final String optionName;
-    private OutputWriterBuilder formatterBuilder;
+    private EventListenerFactory eventListenerFactory;
 
-    private TimestampType(final String optionName, final OutputWriterBuilder formatterBuilder){
+    private TimestampType(final String optionName, final EventListenerFactory eventListenerFactory){
         this.optionName = optionName;
-        this.formatterBuilder = formatterBuilder;
+        this.eventListenerFactory = eventListenerFactory;
     }
     
-    public OutputWriterBuilder getFormatterBuilder() {
-        return formatterBuilder;
+    public EventListenerFactory getEventListenerFactory() {
+        return eventListenerFactory;
     }
     
     private static Optional<TimestampType> fromOption(String option) {
@@ -35,16 +37,19 @@ enum TimestampType {
                 .findFirst();
     }
     
-    static class TimestampTypeConverter extends BaseConverter<TimestampType> {
+    public static class TimestampTypeConverter extends BaseConverter<TimestampType> {
         
-        TimestampTypeConverter(String optionName) {
+        private static final List<String> OPTION_NAMES = stream(TimestampType.values())
+                .map(TimestampType::name).collect(toList());
+
+        public TimestampTypeConverter(String optionName) {
             super(optionName);
         }
 
         @Override
         public TimestampType convert(String label) {
-                return fromOption(label).orElseThrow(() -> 
-                    new ParameterException(getErrorString(label, "a TimestampType")));
+                String message = getErrorString(label, "a TimestampType (values: " + OPTION_NAMES + ")");
+                return fromOption(label).orElseThrow(() -> new ParameterException(message));
         }
     }
 }

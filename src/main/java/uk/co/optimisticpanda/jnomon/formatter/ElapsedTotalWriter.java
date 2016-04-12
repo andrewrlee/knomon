@@ -7,24 +7,23 @@ import static uk.co.optimisticpanda.jnomon.Utils.SECONDS_FORMAT;
 import uk.co.optimisticpanda.jnomon.ColourChooser;
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
-public class ElapsedLineOutputWriter implements EventListener {
+public class ElapsedTotalWriter implements EventListener {
     private final ColourChooser colourChooser;
-    
-    public ElapsedLineOutputWriter(ColourChooser colourChooser) {
+
+    public ElapsedTotalWriter(ColourChooser colourChooser) {
         this.colourChooser = colourChooser;
     }
-    
+
     @Override
     public void onBefore(long processStartTime, long lastStartTime, String line) {
-        onUpdate(lastStartTime, lastStartTime);
+        onUpdate(processStartTime, lastStartTime);
         System.out.printf("%8s  %s %s\n", "", BORDER, line);
     }
     
     @Override
     public void onUpdate(long processStartTime, long currentStartTime) {
-        long elapsed = currentTimeMillis() - currentStartTime;
-        String text = format("%8ss %s", SECONDS_FORMAT.format((elapsed) / 1000d), BORDER);
-        Colour colourForDuration = colourChooser.colourForDuration(elapsed);
-        System.out.print("\033[1A\r" + colourForDuration.colourize(text) + "\n");
+        String text = format("%8ss %s", SECONDS_FORMAT.format((currentTimeMillis() - processStartTime) / 1000d), BORDER);
+        Colour colour = colourChooser.colourForDuration(currentTimeMillis() - currentStartTime);
+        System.out.print("\033[1A\r" + colour.colourize(text) + "\n");
     }
 }
