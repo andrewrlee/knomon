@@ -1,19 +1,22 @@
 package uk.co.optimisticpanda.jnomon;
 
+import static java.lang.System.currentTimeMillis;
 import static uk.co.optimisticpanda.jnomon.Utils.Colour.WHITE_BG;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.Duration;
 
 import rx.Observable;
 import rx.Subscriber;
 
 public class Utils {
 
-    public static final String BORDER = WHITE_BG.colourize(" ");
-    public static final DecimalFormat SECONDS_FORMAT =  new DecimalFormat("0.000");
-    
+    private static final String BORDER = WHITE_BG.colourize(" ");
+    private static final DecimalFormat SECONDS_FORMAT =  new DecimalFormat("0.000s");
+    public static final String START_OF_PREV_LINE = "\033[1A\r";
+
     public enum Colour {
         WHITE_BG(47),
         RED_FG(31), 
@@ -35,6 +38,18 @@ public class Utils {
         public String colourize(final String text) {
             return  "\u001B[" + code + "m" + text + "\u001B[0m";
         }
+    }
+    
+    public static String formatLine(int marginWidth, String left, String right) {
+        return String.format("%" + marginWidth+ "s %s %s", left, BORDER, right);
+    }
+
+    public static Duration since(long millis) {
+        return Duration.ofMillis(currentTimeMillis() - millis);
+    }
+    
+    public static String formatSeconds(Duration duration) {
+        return SECONDS_FORMAT.format(duration.toMillis() / 1000d);
     }
     
     static Observable<String> observableFrom(final BufferedReader reader) {

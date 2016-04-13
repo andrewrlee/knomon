@@ -1,43 +1,42 @@
 package uk.co.optimisticpanda.jnomon.formatter;
 
-import static java.lang.String.format;
-import static java.lang.System.currentTimeMillis;
-import static uk.co.optimisticpanda.jnomon.Utils.BORDER;
-import static uk.co.optimisticpanda.jnomon.Utils.SECONDS_FORMAT;
+import static uk.co.optimisticpanda.jnomon.Utils.START_OF_PREV_LINE;
+import static uk.co.optimisticpanda.jnomon.Utils.formatLine;
+import static uk.co.optimisticpanda.jnomon.Utils.formatSeconds;
 
+import java.time.Duration;
 import java.time.Instant;
 
 import uk.co.optimisticpanda.jnomon.ColourChooser;
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
 public class AbsoluteOutputWriter implements EventListener {
-    private ColourChooser colourChooser;
+    private final ColourChooser colourChooser;
 
     public AbsoluteOutputWriter(ColourChooser colourChooser) {
         this.colourChooser = colourChooser;
     }
 
     @Override
-    public void onLineStart(long processStartTime, long lastStartTime, String line) {
-        onUpdate(lastStartTime, lastStartTime);
-        System.out.printf("%24s %s %s\n", " ", BORDER, line);
+    public void onLineStart(Duration sinceProcessStart, Duration sinceLastStart, String line) {
+        onUpdate(sinceProcessStart, sinceLastStart);
+        System.out.println(formatLine(24, "", line));
     }
     
     @Override
-    public void onUpdate(long processStartTime, long currentStartTime) {
-        String text = format("%24s %s", Instant.now().toString(), BORDER);
-        Colour colour = colourChooser.colourForDuration(currentTimeMillis() - currentStartTime);
-        System.out.print("\033[1A\r" + colour.colourize(text) + "\n");
+    public void onUpdate(Duration sinceProcessStart, Duration sinceLastStart) {
+        String text = formatLine(24, Instant.now().toString(), "");
+        Colour colour = colourChooser.colourForDuration(sinceLastStart);
+        System.out.println(START_OF_PREV_LINE + colour.colourize(text));
     }
     
     @Override
-    public void onLineEnd(long processStartTime, long lastStartTime, String lastLine) {
-        System.out.printf("%24ss %s %s\n", Instant.now().toString(), BORDER, lastLine);
+    public void onLineEnd(Duration sinceProcessStart, Duration sinceLastStart, String lastLine) {
+        System.out.println(formatLine(24, Instant.now().toString(), lastLine));
     }
     
     @Override
-    public void onFinally(long processStartTime, long currentStartTime) {
-        double elapsed = (currentTimeMillis() - processStartTime) / 1000d;
-        System.out.printf("%25s %s %ss\n", "Total:", BORDER, SECONDS_FORMAT.format(elapsed));
+    public void onFinally(Duration sinceProcessStart, Duration sinceLastStart) {
+        System.out.println(formatLine(24, "Total:", formatSeconds(sinceProcessStart)));
     }
 }

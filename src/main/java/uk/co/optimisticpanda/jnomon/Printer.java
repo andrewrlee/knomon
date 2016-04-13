@@ -1,6 +1,10 @@
 package uk.co.optimisticpanda.jnomon;
 
 import static java.lang.System.currentTimeMillis;
+import static uk.co.optimisticpanda.jnomon.Utils.since;
+
+import java.time.Duration;
+
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
 import uk.co.optimisticpanda.jnomon.Step.LineStep;
@@ -22,13 +26,15 @@ class Printer implements Action1<Step> {
     
     @Override
     public void call(Step step) {
+        Duration sinceProcessStart = since(processStart);
+        Duration sinceLastStart = since(start);
         if (step instanceof TickStep) {
-            eventListener.onUpdate(processStart, start);
+            eventListener.onUpdate(sinceProcessStart, sinceLastStart);
         } else if (step instanceof QuitStep) {
             stopper.onCompleted();
-            eventListener.onFinally(processStart, start);
+            eventListener.onFinally(sinceProcessStart, sinceLastStart);
         } else {
-            eventListener.onLineStart(processStart, start, ((LineStep) step).getLine());
+            eventListener.onLineStart(sinceProcessStart, sinceLastStart, ((LineStep) step).getLine());
             start = currentTimeMillis();
         }
     }

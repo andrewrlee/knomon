@@ -1,5 +1,6 @@
 package uk.co.optimisticpanda.jnomon.formatter;
 
+import java.time.Duration;
 import java.util.Optional;
 
 public class OutputWriterWrapper implements EventListener {
@@ -21,28 +22,28 @@ public class OutputWriterWrapper implements EventListener {
     }
     
     @Override
-    public void onLineStart(long processStartTime, long lastStartTime, String line) {
+    public void onLineStart(Duration sinceProcessStart, Duration sinceLastStart, String line) {
         if (realTime) {
-            eventListener.onLineStart(processStartTime, lastStartTime, line);
+            eventListener.onLineStart(sinceProcessStart, sinceLastStart, line);
         } else {
-            eventListener.onLineEnd(processStartTime, lastStartTime, getLastLine());
+            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, getLastLine());
         }
         this.lastLine = line;
     }
     
     @Override
-    public void onUpdate(long processStartTime, long currentStartTime) {
+    public void onUpdate(Duration sinceProcessStart, Duration sinceLastStart) {
         if (realTime) {
-            eventListener.onUpdate(processStartTime, currentStartTime);
+            eventListener.onUpdate(sinceProcessStart, sinceLastStart);
         }
     }
     
     @Override
-    public void onFinally(long processStartTime, long currentStartTime) {
+    public void onFinally(Duration sinceProcessStart, Duration sinceLastStart) {
         if (!realTime) {
-            eventListener.onLineEnd(processStartTime, currentStartTime, getLastLine());
+            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, getLastLine());
         }
-        eventListener.onFinally(processStartTime, currentStartTime);
+        eventListener.onFinally(sinceProcessStart, sinceLastStart);
     }
     
     private String getLastLine() {
