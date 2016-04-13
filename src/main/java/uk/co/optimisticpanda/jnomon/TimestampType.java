@@ -5,11 +5,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import uk.co.optimisticpanda.jnomon.formatter.AbsoluteOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.ElapsedLineOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalWriter;
-import uk.co.optimisticpanda.jnomon.formatter.EventListener.EventListenerFactory;
+import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
@@ -20,14 +21,14 @@ public enum TimestampType {
     ABSOLUTE("absolute", AbsoluteOutputWriter::new);
     
     private final String optionName;
-    private EventListenerFactory eventListenerFactory;
+    private Supplier<EventListener> eventListenerFactory;
 
-    private TimestampType(final String optionName, final EventListenerFactory eventListenerFactory){
+    private TimestampType(final String optionName, final Supplier<EventListener> eventListenerFactory){
         this.optionName = optionName;
         this.eventListenerFactory = eventListenerFactory;
     }
     
-    public EventListenerFactory getEventListenerFactory() {
+    public Supplier<EventListener> getEventListenerFactory() {
         return eventListenerFactory;
     }
     

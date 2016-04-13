@@ -2,7 +2,7 @@ package uk.co.optimisticpanda.jnomon.formatter;
 
 import java.time.Duration;
 
-import uk.co.optimisticpanda.jnomon.ColourChooser;
+import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
 public interface EventListener {
     
@@ -14,7 +14,7 @@ public interface EventListener {
         // NO-OP
     }
 
-    default void onUpdate(Duration sinceProcessStart, Duration sinceLastStart) {
+    default void onUpdate(Colour colour, Duration sinceProcessStart, Duration sinceLastStart) {
         // NO-OP
     }
 
@@ -24,9 +24,5 @@ public interface EventListener {
 
     default void onFinally(Duration sinceProcessStart, Duration sinceLastStart) {
         // NO-OP
-    }
-    
-    public interface EventListenerFactory {
-        EventListener build(ColourChooser colourChooser);
     }
 }

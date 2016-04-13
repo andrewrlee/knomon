@@ -17,10 +17,12 @@ class Printer implements Action1<Step> {
     private final PublishSubject<Integer> stopper;
     private long start = currentTimeMillis(), processStart = currentTimeMillis();
     private EventListener eventListener;
+    private ColourChooser colourChooser;
 
     Printer(PublishSubject<Integer> stopper, Configuration config) {
         this.stopper = stopper;
         this.eventListener = new OutputWriterWrapper(config.getEventListener(), config.getRealTime().isPresent());
+        this.colourChooser = config.getColourChooser();
         eventListener.onBeforeAll();
     }
     
@@ -28,8 +30,9 @@ class Printer implements Action1<Step> {
     public void call(Step step) {
         Duration sinceProcessStart = since(processStart);
         Duration sinceLastStart = since(start);
+        
         if (step instanceof TickStep) {
-            eventListener.onUpdate(sinceProcessStart, sinceLastStart);
+            eventListener.onUpdate(colourChooser.colourForDuration(sinceLastStart), sinceProcessStart, sinceLastStart);
         } else if (step instanceof QuitStep) {
             stopper.onCompleted();
             eventListener.onFinally(sinceProcessStart, sinceLastStart);

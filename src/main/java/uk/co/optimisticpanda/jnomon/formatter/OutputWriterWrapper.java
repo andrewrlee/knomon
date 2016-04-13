@@ -3,6 +3,8 @@ package uk.co.optimisticpanda.jnomon.formatter;
 import java.time.Duration;
 import java.util.Optional;
 
+import uk.co.optimisticpanda.jnomon.Utils.Colour;
+
 public class OutputWriterWrapper implements EventListener {
 
     private final EventListener eventListener;
@@ -32,9 +34,9 @@ public class OutputWriterWrapper implements EventListener {
     }
     
     @Override
-    public void onUpdate(Duration sinceProcessStart, Duration sinceLastStart) {
+    public void onUpdate(Colour colour, Duration sinceProcessStart, Duration sinceLastStart) {
         if (realTime) {
-            eventListener.onUpdate(sinceProcessStart, sinceLastStart);
+            eventListener.onUpdate(colour, sinceProcessStart, sinceLastStart);
         }
     }
     

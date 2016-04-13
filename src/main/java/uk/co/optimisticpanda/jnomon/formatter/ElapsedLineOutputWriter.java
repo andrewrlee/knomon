@@ -6,26 +6,19 @@ import static uk.co.optimisticpanda.jnomon.Utils.formatSeconds;
 
 import java.time.Duration;
 
-import uk.co.optimisticpanda.jnomon.ColourChooser;
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
 public class ElapsedLineOutputWriter implements EventListener {
-    private final ColourChooser colourChooser;
-    
-    public ElapsedLineOutputWriter(ColourChooser colourChooser) {
-        this.colourChooser = colourChooser;
-    }
     
     @Override
     public void onLineStart(Duration sinceProcessStart, Duration sinceLastStart, String line) {
-        onUpdate(sinceProcessStart, sinceLastStart);
+        onUpdate(null, sinceProcessStart, sinceLastStart);
         System.out.println(formatLine(8, "", line));
     }
     
     @Override
-    public void onUpdate(Duration sinceProcessStart, Duration sinceLastStart) {
+    public void onUpdate(Colour colour, Duration sinceProcessStart, Duration sinceLastStart) {
         String text = formatLine(8, formatSeconds(sinceLastStart), "");
-        Colour colour = colourChooser.colourForDuration(sinceLastStart);
         System.out.println(START_OF_PREV_LINE + colour.colourize(text));
     }
     

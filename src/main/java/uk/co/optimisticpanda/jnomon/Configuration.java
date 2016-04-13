@@ -58,8 +58,11 @@ class Configuration {
     }
     
     EventListener getEventListener() {
-        ColourChooser colourChooser = ColourChooser.newConfigBasedColourChooser(this);
-        return type.getEventListenerFactory().build(colourChooser);
+        return type.getEventListenerFactory().get();
+    }
+    
+    ColourChooser getColourChooser() {
+        return ColourChooser.newConfigBasedColourChooser(this);
     }
     
     boolean helpShown() {
