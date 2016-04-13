@@ -2,7 +2,7 @@
 
 Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](https://github.com/ReactiveX/RxJava) and [Immutables](http://immutables.github.io/).
 
-###Example: 
+###Demo: 
 
 [![asciicast](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c.png)](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c)
 
