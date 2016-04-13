@@ -58,5 +58,4 @@ All switches are optional and described below:
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
  * Only tested to work on linux
  * Doesn't print total time at the end
- * Real time displays line before total time is calculated
  * NO TESTS!
