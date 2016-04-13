@@ -4,7 +4,7 @@ Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](h
 
 ###Example: 
 
-[![asciicast](https://asciinema.org/a/4vnmdusrxre9oin1om4g9dpnh.png)](https://asciinema.org/a/4vnmdusrxre9oin1om4g9dpnh)
+[![asciicast](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c.png)](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c)
 
 ###Building/Running:
 
@@ -56,6 +56,6 @@ All switches are optional and described below:
 ###Additional Limitations/Bugs:
 
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
+ * Similarly, it won't detect that it has been piped to a non-tty env, so won't automatically disable the --real-time option. 
  * Only tested to work on linux
- * Doesn't print total time at the end
  * NO TESTS!

@@ -31,4 +31,10 @@ public class ElapsedTotalWriter implements EventListener {
     public void onLineEnd(long processStartTime, long lastStartTime, String lastLine) {
         System.out.printf("%8ss %s %s\n", SECONDS_FORMAT.format((currentTimeMillis() - processStartTime) / 1000d), BORDER, lastLine);
     }
+    
+    @Override
+    public void onFinally(long processStartTime, long currentStartTime) {
+        double elapsed = (currentTimeMillis() - processStartTime) / 1000d;
+        System.out.printf("%9s %s %ss\n", "Total:", BORDER, SECONDS_FORMAT.format(elapsed));
+    }
 }

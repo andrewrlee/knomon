@@ -3,6 +3,7 @@ package uk.co.optimisticpanda.jnomon.formatter;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static uk.co.optimisticpanda.jnomon.Utils.BORDER;
+import static uk.co.optimisticpanda.jnomon.Utils.SECONDS_FORMAT;
 
 import java.time.Instant;
 
@@ -32,5 +33,11 @@ public class AbsoluteOutputWriter implements EventListener {
     @Override
     public void onLineEnd(long processStartTime, long lastStartTime, String lastLine) {
         System.out.printf("%24ss %s %s\n", Instant.now().toString(), BORDER, lastLine);
+    }
+    
+    @Override
+    public void onFinally(long processStartTime, long currentStartTime) {
+        double elapsed = (currentTimeMillis() - processStartTime) / 1000d;
+        System.out.printf("%25s %s %ss\n", "Total:", BORDER, SECONDS_FORMAT.format(elapsed));
     }
 }
