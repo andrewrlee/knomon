@@ -4,7 +4,7 @@ Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](h
 
 ###Demo: 
 
-[![asciicast](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c.png)](https://asciinema.org/a/7ujd1lu6msyftcw281l9hxh0c)
+[![asciicast](https://asciinema.org/a/0o66a91aifh4fhlvhph2n0w7a.png)](https://asciinema.org/a/0o66a91aifh4fhlvhph2n0w7a)
 
 ###Building/Running:
 
