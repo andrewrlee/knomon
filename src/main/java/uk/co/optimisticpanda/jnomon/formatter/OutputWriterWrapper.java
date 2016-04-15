@@ -24,9 +24,9 @@ public class OutputWriterWrapper implements EventListener {
     }
     
     @Override
-    public void onLineStart(Duration sinceProcessStart, Duration sinceLastStart, String line) {
+    public void onLineStart(Colour colour, Duration sinceProcessStart, Duration sinceLastStart, String line) {
         if (realTime) {
-            eventListener.onLineStart(sinceProcessStart, sinceLastStart, line);
+            eventListener.onLineStart(colour, sinceProcessStart, sinceLastStart, line);
         } else {
             eventListener.onLineEnd(sinceProcessStart, sinceLastStart, getLastLine());
         }

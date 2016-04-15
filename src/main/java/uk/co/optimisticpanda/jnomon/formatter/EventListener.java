@@ -10,7 +10,7 @@ public interface EventListener {
         // NO-OP
     }
     
-    default void onLineStart(Duration sinceProcessStart, Duration sinceLastStart, String line) {
+    default void onLineStart(Colour colour, Duration sinceProcessStart, Duration sinceLastStart, String line) {
         // NO-OP
     }
 

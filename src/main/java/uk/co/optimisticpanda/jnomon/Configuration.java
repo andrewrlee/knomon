@@ -1,10 +1,8 @@
 package uk.co.optimisticpanda.jnomon;
 
-import static uk.co.optimisticpanda.jnomon.TimestampType.ELAPSED_LINE;
-
 import java.util.Optional;
 
-import uk.co.optimisticpanda.jnomon.TimestampType.TimestampTypeConverter;
+import uk.co.optimisticpanda.jnomon.formatter.ElapsedLineOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 import com.beust.jcommander.JCommander;
@@ -38,12 +36,12 @@ class Configuration {
     private String realTime = "500";
 
     @Parameter(names = { "-t", "--type" },
-            converter = TimestampTypeConverter.class,
+            converter = EventListenerConverter.class,
             description = "Timestamp type to display:"
             + "\n\t'elapsed-line': time since last line"
             + "\n\t'elapsed-total': time since start of the process"
             + "\n\t'absolute': Absolute timestamp in UTC")
-    private TimestampType type = ELAPSED_LINE;
+    private EventListener eventListener = new ElapsedLineOutputWriter();
     
     Optional<Integer> getHigh() {
         return Optional.ofNullable(high);
@@ -58,7 +56,7 @@ class Configuration {
     }
     
     EventListener getEventListener() {
-        return type.getEventListenerFactory().get();
+        return eventListener;
     }
     
     ColourChooser getColourChooser() {
