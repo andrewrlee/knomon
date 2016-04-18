@@ -11,8 +11,7 @@ import java.time.Duration;
 import rx.Observable;
 import rx.Subscriber;
 
-public class Utils {
-
+public enum Utils { ;
     private static final DecimalFormat SECONDS_FORMAT =  new DecimalFormat("0.000s");
     static final String BORDER = WHITE_BG.colourize(" ");
     public static final String MOVE_TO_START_OF_PREV_LINE = "\033[1A\r";
