@@ -1,4 +1,4 @@
-# jnomon [![Build Status](https://travis-ci.org/plasma147/jnonom.svg?branch=master)](https://travis-ci.org/plasma147/jnomon)
+# jnomon [![Build Status](https://api.travis-ci.org/plasma147/jnomon.svg?branch=master)](https://travis-ci.org/plasma147/jnomon)
 
 Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](https://github.com/ReactiveX/RxJava) and [Immutables](http://immutables.github.io/).
 
