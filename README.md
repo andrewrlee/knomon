@@ -58,5 +58,4 @@ All switches are optional and described below:
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
  * Similarly, it won't detect that it has been piped to a non-tty env, so won't automatically disable the --real-time option. 
  * Only tested to work on linux
- * FEW TESTS!
- * CI/Coverage
+ * Needs more tests
