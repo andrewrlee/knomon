@@ -1,6 +1,5 @@
 package uk.co.optimisticpanda.jnomon;
 
-import static java.lang.System.currentTimeMillis;
 import static uk.co.optimisticpanda.jnomon.Utils.Colour.WHITE_BG;
 
 import java.io.BufferedReader;
@@ -42,12 +41,16 @@ public class Utils {
         }
     }
     
+    public static long now() {
+        return clock.millis();
+    }
+    
     public static String formatLine(int marginWidth, String left, String right) {
         return String.format("%" + marginWidth+ "s %s %s", left, BORDER, right);
     }
 
     public static Duration since(long millis) {
-        return Duration.ofMillis(clock.millis() - millis);
+        return Duration.ofMillis(now() - millis);
     }
     
     public static String formatSeconds(Duration duration) {

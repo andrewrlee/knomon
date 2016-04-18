@@ -32,7 +32,7 @@ public class EventListenerConverter extends BaseConverter<EventListener> {
             }
             default: {
                 List<String> options = asList("elapsed-line", "elapsed-total", "absolute");
-                String message = getErrorString(label, "a TimestampType (values: " + options + ")");
+                String message = getErrorString(label, "an EventListener (values: " + options + ")");
                 throw new ParameterException(message);
             }
         }

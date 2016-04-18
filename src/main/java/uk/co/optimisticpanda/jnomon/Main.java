@@ -16,16 +16,19 @@ import rx.observables.BlockingObservable;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import uk.co.optimisticpanda.jnomon.Step.QuitStep;
+import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Configuration configuration = Configuration.read(args);
+        Configuration config = Configuration.read(args);
         
-        if (configuration.helpShown()) {
+        if (config.helpShown()) {
             return;
         }
+        EventListenerAdapter eventListener = new EventListenerAdapter(
+                config.getColourChooser(), config.getEventListener(), config.getRealTime().isPresent());
         
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             
@@ -36,14 +39,14 @@ public class Main {
                     .subscribeOn(Schedulers.io())
                     .concatWith(just(new QuitStep()));
 
-            Observable<Step> ticks = configuration.getRealTime()
+            Observable<Step> ticks = config.getRealTime()
                     .map(time -> interval(time, MILLISECONDS)).orElse(empty())
                     .<Step> map(TickStepImpl::new)
                     .takeUntil(stopper)
                     .observeOn(newThread());
 
             Observable<Step> combinedSteps = Observable.merge(lines, ticks);
-            BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, configuration));
+            BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, eventListener));
         }
     }
 }
