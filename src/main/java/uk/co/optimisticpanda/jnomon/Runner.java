@@ -25,9 +25,9 @@ public class Runner {
         new Runner().run(config, new BufferedReader(new InputStreamReader(System.in)));
     }
 
-    void run(Configuration config, BufferedReader input) throws IOException {
+    boolean run(Configuration config, BufferedReader input) throws IOException {
         if (config.helpShown()) {
-            return;
+            return false;
         }
         EventListenerAdapter eventListener = new EventListenerAdapter(
                 config.getColourChooser(), config.getEventListener(), config.getRealTime().isPresent());
@@ -49,6 +49,7 @@ public class Runner {
 
             Observable<Event> combinedSteps = Observable.merge(lines, ticks);
             BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, eventListener));
+            return true;
         }
     }
 }
