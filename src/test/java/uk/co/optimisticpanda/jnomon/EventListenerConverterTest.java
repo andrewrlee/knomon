@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import uk.co.optimisticpanda.jnomon.formatter.AbsoluteOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.ElapsedLineOutputWriter;
-import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalWriter;
+import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 import com.beust.jcommander.ParameterException;
@@ -17,7 +17,7 @@ public class EventListenerConverterTest {
     @Test
     public void checkValidOptions() {
         assertThat(listenerFor("elapsed-line")).isInstanceOf(ElapsedLineOutputWriter.class);
-        assertThat(listenerFor("elapsed-total")).isInstanceOf(ElapsedTotalWriter.class);
+        assertThat(listenerFor("elapsed-total")).isInstanceOf(ElapsedTotalOutputWriter.class);
         assertThat(listenerFor("absolute")).isInstanceOf(AbsoluteOutputWriter.class);
     }
     

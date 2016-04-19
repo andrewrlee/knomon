@@ -36,7 +36,6 @@ public class PrinterTest {
     @Test
     public void quitStepPublishesStopEvent() {
         printer.call(new QuitEvent());
-        
         verify(eventListener).onFinally(any(), any());
         assertThat(stopper.hasCompleted()).isTrue();
     }

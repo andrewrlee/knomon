@@ -44,6 +44,10 @@ public enum Utils { ;
         return clock.millis();
     }
     
+    public static String nowAsTimestamp() {
+        return clock.instant().toString();
+    }
+    
     public static String formatLine(int marginWidth, String left, String right) {
         return String.format("%" + marginWidth+ "s %s %s", left, BORDER, right);
     }

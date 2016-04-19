@@ -6,7 +6,7 @@ import java.util.List;
 
 import uk.co.optimisticpanda.jnomon.formatter.AbsoluteOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.ElapsedLineOutputWriter;
-import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalWriter;
+import uk.co.optimisticpanda.jnomon.formatter.ElapsedTotalOutputWriter;
 import uk.co.optimisticpanda.jnomon.formatter.EventListener;
 
 import com.beust.jcommander.ParameterException;
@@ -25,7 +25,7 @@ public class EventListenerConverter extends BaseConverter<EventListener> {
                 return new ElapsedLineOutputWriter();   
             }
             case "elapsed-total": {
-                return new ElapsedTotalWriter();
+                return new ElapsedTotalOutputWriter();
             }
             case "absolute": {
                 return new AbsoluteOutputWriter();

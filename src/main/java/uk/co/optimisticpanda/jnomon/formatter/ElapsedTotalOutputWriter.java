@@ -8,7 +8,7 @@ import java.time.Duration;
 
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
-public class ElapsedTotalWriter implements EventListener{
+public class ElapsedTotalOutputWriter implements EventListener{
 
     @Override
     public void onLineStart(Colour colour, Duration sinceProcessStart, Duration sinceLastStart, String line) {
