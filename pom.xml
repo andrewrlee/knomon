@@ -89,7 +89,6 @@
 				<version>0.7.5.201505241946</version>
 				<configuration>
 					<excludes>
-						<!-- Immutables Generated classes -->
 						<exclude>uk/co/optimisticpanda/jnomon/Main*</exclude>
                                                 <exclude>uk/co/optimisticpanda/jnomon/LineEventImpl*</exclude>
 						<exclude>uk/co/optimisticpanda/jnomon/TickEventImpl*</exclude>
