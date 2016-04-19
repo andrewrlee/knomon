@@ -3,13 +3,10 @@ package uk.co.optimisticpanda.jnomon.formatter;
 import static uk.co.optimisticpanda.jnomon.Utils.MOVE_TO_START_OF_PREV_LINE;
 import static uk.co.optimisticpanda.jnomon.Utils.formatLine;
 import static uk.co.optimisticpanda.jnomon.Utils.formatSeconds;
-import static uk.co.optimisticpanda.jnomon.Utils.now;
 import static uk.co.optimisticpanda.jnomon.Utils.nowAsTimestamp;
 
 import java.time.Duration;
-import java.time.Instant;
 
-import uk.co.optimisticpanda.jnomon.Utils;
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
 public class AbsoluteOutputWriter implements EventListener {

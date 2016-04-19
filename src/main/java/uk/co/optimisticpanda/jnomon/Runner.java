@@ -18,19 +18,21 @@ import rx.subjects.PublishSubject;
 import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
-public class Main {
+public class Runner {
 
     public static void main(String[] args) throws IOException {
-
         Configuration config = Configuration.read(args);
-        
+        new Runner().run(config, new BufferedReader(new InputStreamReader(System.in)));
+    }
+
+    void run(Configuration config, BufferedReader input) throws IOException {
         if (config.helpShown()) {
             return;
         }
         EventListenerAdapter eventListener = new EventListenerAdapter(
                 config.getColourChooser(), config.getEventListener(), config.getRealTime().isPresent());
         
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader reader = input) {
             
             PublishSubject<Integer> stopper = PublishSubject.create();
 

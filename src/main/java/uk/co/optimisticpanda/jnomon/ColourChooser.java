@@ -1,8 +1,8 @@
 package uk.co.optimisticpanda.jnomon;
 
 import static uk.co.optimisticpanda.jnomon.Utils.Colour.GREEN_FG;
-import static uk.co.optimisticpanda.jnomon.Utils.Colour.RED_FG;
 import static uk.co.optimisticpanda.jnomon.Utils.Colour.NO_COLOUR;
+import static uk.co.optimisticpanda.jnomon.Utils.Colour.RED_FG;
 import static uk.co.optimisticpanda.jnomon.Utils.Colour.YELLOW_FG;
 
 import java.time.Duration;

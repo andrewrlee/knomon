@@ -71,7 +71,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>uk.co.optimisticpanda.jnomon.Main</mainClass>
+									<mainClass>uk.co.optimisticpanda.jnomon.Runner</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
@@ -92,7 +92,8 @@
 						<!-- Immutables Generated classes -->
 						<exclude>uk/co/optimisticpanda/jnomon/LineEventImpl*</exclude>
 						<exclude>uk/co/optimisticpanda/jnomon/TickEventImpl*</exclude>
-					</excludes>
+                                                <exclude>uk/co/optimisticpanda/jnomon/formatter/EventListener*</exclude>	
+				</excludes>
 				</configuration>
 				<executions>
 					<execution>
