@@ -21,7 +21,7 @@ public class EventListenerAdapter {
 
     public void onBeforeAll() {
         if (realTime) {
-            System.out.println();
+            eventListener.onBeforeAll();
         }
     }
     
@@ -30,7 +30,7 @@ public class EventListenerAdapter {
             Colour colour = colourChooser.colourForDuration(sinceLastStart);
             eventListener.onLineStart(colour, sinceProcessStart, sinceLastStart, line);
         } else {
-            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, getLastLine());
+            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, lastLine());
         }
         this.lastLine = line;
     }
@@ -44,12 +44,12 @@ public class EventListenerAdapter {
     
     public void onFinally(Duration sinceProcessStart, Duration sinceLastStart) {
         if (!realTime) {
-            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, getLastLine());
+            eventListener.onLineEnd(sinceProcessStart, sinceLastStart, lastLine());
         }
         eventListener.onFinally(sinceProcessStart, sinceLastStart);
     }
-    
-    private String getLastLine() {
+
+    String lastLine() {
         return Optional.ofNullable(lastLine).orElse("");
     }
 }

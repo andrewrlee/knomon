@@ -13,22 +13,22 @@ public class ElapsedTotalWriter implements EventListener{
     @Override
     public void onLineStart(Colour colour, Duration sinceProcessStart, Duration sinceLastStart, String line) {
         onUpdate(colour, sinceProcessStart, sinceLastStart);
-        System.out.println(formatLine(8, "", line));
+        printer().println(formatLine(8, "", line));
     }
     
     @Override
     public void onUpdate(Colour colour, Duration sinceProcessStart, Duration sinceLastStart) {
         String text = formatLine(8, formatSeconds(sinceProcessStart), "");
-        System.out.print(MOVE_TO_START_OF_PREV_LINE + colour.colourize(text) + "\n");
+        printer().print(MOVE_TO_START_OF_PREV_LINE + colour.colourize(text) + "\n");
     }
 
     @Override
     public void onLineEnd(Duration sinceProcessStart, Duration sinceLastStart, String lastLine) {
-        System.out.println(formatLine(8, formatSeconds(sinceProcessStart), lastLine));
+        printer().println(formatLine(8, formatSeconds(sinceProcessStart), lastLine));
     }
     
     @Override
     public void onFinally(Duration sinceProcessStart, Duration sinceLastStart) {
-        System.out.println(formatLine(8, "Total:", formatSeconds(sinceProcessStart)));
+        printer().println(formatLine(8, "Total:", formatSeconds(sinceProcessStart)));
     }
 }

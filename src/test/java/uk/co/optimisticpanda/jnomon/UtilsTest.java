@@ -15,23 +15,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Future;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import rx.Observable;
 import uk.co.optimisticpanda.jnomon.Utils.Colour;
 
 public class UtilsTest {
 
-    @Rule
-    public FixedClockRule clock = new FixedClockRule();
+    @Rule public FixedClockRule clock = new FixedClockRule();
 
     @Test
     public void checkFormatLine() {

@@ -35,13 +35,13 @@ public class Main {
             PublishSubject<Integer> stopper = PublishSubject.create();
 
             Observable<Event> lines = observableFrom(reader)
-                    .<Event> map(LineStepImpl::new)
+                    .<Event> map(LineEventImpl::new)
                     .subscribeOn(Schedulers.io())
                     .concatWith(just(new QuitEvent()));
 
             Observable<Event> ticks = config.getRealTime()
                     .map(time -> interval(time, MILLISECONDS)).orElse(empty())
-                    .<Event> map(TickStepImpl::new)
+                    .<Event> map(TickEventImpl::new)
                     .takeUntil(stopper)
                     .observeOn(newThread());
 

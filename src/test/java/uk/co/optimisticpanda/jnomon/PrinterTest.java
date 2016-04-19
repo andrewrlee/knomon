@@ -43,13 +43,13 @@ public class PrinterTest {
 
     @Test
     public void handlesTickEvents() {
-        printer.call(new TickStepImpl(1L));
+        printer.call(new TickEventImpl(1L));
         verify(eventListener).onUpdate(any(), any());
     }
 
     @Test
     public void handlesLineEvents() {
-        printer.call(new LineStepImpl("A line"));
+        printer.call(new LineEventImpl("A line"));
         verify(eventListener).onLineStart(any(), any(), eq("A line"));
     }
 }
