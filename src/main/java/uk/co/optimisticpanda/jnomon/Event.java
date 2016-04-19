@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 import org.immutables.value.Value.Immutable;
 import org.immutables.value.Value.Style;
 
-interface Step {
+interface Event {
     
     @Target({ PACKAGE, TYPE })
     @Retention(CLASS)
@@ -19,15 +19,15 @@ interface Step {
     }
 
     @Dto @Immutable
-    interface TickStep extends Step {
+    interface TickEvent extends Event {
         Long getTick();
     }
 
-    static class QuitStep implements Step {
+    static class QuitEvent implements Event {
     }
 
     @Dto @Immutable
-    interface LineStep extends Step {
+    interface LineEvent extends Event {
         String getLine();
     }
 }

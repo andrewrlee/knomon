@@ -15,7 +15,7 @@ import rx.Observable;
 import rx.observables.BlockingObservable;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
-import uk.co.optimisticpanda.jnomon.Step.QuitStep;
+import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
 public class Main {
@@ -34,18 +34,18 @@ public class Main {
             
             PublishSubject<Integer> stopper = PublishSubject.create();
 
-            Observable<Step> lines = observableFrom(reader)
-                    .<Step> map(LineStepImpl::new)
+            Observable<Event> lines = observableFrom(reader)
+                    .<Event> map(LineStepImpl::new)
                     .subscribeOn(Schedulers.io())
-                    .concatWith(just(new QuitStep()));
+                    .concatWith(just(new QuitEvent()));
 
-            Observable<Step> ticks = config.getRealTime()
+            Observable<Event> ticks = config.getRealTime()
                     .map(time -> interval(time, MILLISECONDS)).orElse(empty())
-                    .<Step> map(TickStepImpl::new)
+                    .<Event> map(TickStepImpl::new)
                     .takeUntil(stopper)
                     .observeOn(newThread());
 
-            Observable<Step> combinedSteps = Observable.merge(lines, ticks);
+            Observable<Event> combinedSteps = Observable.merge(lines, ticks);
             BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, eventListener));
         }
     }

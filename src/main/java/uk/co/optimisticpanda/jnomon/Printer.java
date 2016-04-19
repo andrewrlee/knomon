@@ -7,12 +7,12 @@ import java.time.Duration;
 
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
-import uk.co.optimisticpanda.jnomon.Step.LineStep;
-import uk.co.optimisticpanda.jnomon.Step.QuitStep;
-import uk.co.optimisticpanda.jnomon.Step.TickStep;
+import uk.co.optimisticpanda.jnomon.Event.LineEvent;
+import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
+import uk.co.optimisticpanda.jnomon.Event.TickEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
-class Printer implements Action1<Step> {
+class Printer implements Action1<Event> {
     private final PublishSubject<Integer> stopper;
     private final EventListenerAdapter eventListener;
     private long start = now(), processStart = now();
@@ -24,17 +24,17 @@ class Printer implements Action1<Step> {
     }
     
     @Override
-    public void call(Step step) {
+    public void call(Event step) {
         Duration sinceProcessStart = since(processStart);
         Duration sinceLastStart = since(start);
         
-        if (step instanceof TickStep) {
+        if (step instanceof TickEvent) {
             eventListener.onUpdate(sinceProcessStart, sinceLastStart);
-        } else if (step instanceof QuitStep) {
+        } else if (step instanceof QuitEvent) {
             stopper.onCompleted();
             eventListener.onFinally(sinceProcessStart, sinceLastStart);
         } else {
-            eventListener.onLineStart(sinceProcessStart, sinceLastStart, ((LineStep) step).getLine());
+            eventListener.onLineStart(sinceProcessStart, sinceLastStart, ((LineEvent) step).getLine());
             start = now();
         }
     }

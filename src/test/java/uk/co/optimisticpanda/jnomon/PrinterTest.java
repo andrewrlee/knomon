@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import rx.subjects.PublishSubject;
-import uk.co.optimisticpanda.jnomon.Step.QuitStep;
+import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +35,7 @@ public class PrinterTest {
     
     @Test
     public void quitStepPublishesStopEvent() {
-        printer.call(new QuitStep());
+        printer.call(new QuitEvent());
         
         verify(eventListener).onFinally(any(), any());
         assertThat(stopper.hasCompleted()).isTrue();
