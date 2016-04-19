@@ -1,11 +1,12 @@
 package uk.co.optimisticpanda.jnomon;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
 import org.junit.Test;
-import static org.assertj.core.api.Assertions.*;
 public class RunnerTest {
 
     @Test

@@ -9,7 +9,6 @@ import static uk.co.optimisticpanda.jnomon.Utils.observableFrom;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import rx.Observable;
 import rx.observables.BlockingObservable;
@@ -19,11 +18,6 @@ import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
 public class Runner {
-
-    public static void main(String[] args) throws IOException {
-        Configuration config = Configuration.read(args);
-        new Runner().run(config, new BufferedReader(new InputStreamReader(System.in)));
-    }
 
     boolean run(Configuration config, BufferedReader input) throws IOException {
         if (config.helpShown()) {
