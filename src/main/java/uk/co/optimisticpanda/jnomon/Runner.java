@@ -17,7 +17,7 @@ import rx.subjects.PublishSubject;
 import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
-public class Runner {
+class Runner {
 
     boolean run(Configuration config, BufferedReader input) throws IOException {
         if (config.helpShown()) {
@@ -42,7 +42,7 @@ public class Runner {
                     .observeOn(newThread());
 
             Observable<Event> combinedSteps = Observable.merge(lines, ticks);
-            BlockingObservable.from(combinedSteps).subscribe(new Printer(stopper, eventListener));
+            BlockingObservable.from(combinedSteps).subscribe(new EventProcessor(stopper, eventListener));
             return true;
         }
     }

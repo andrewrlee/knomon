@@ -19,7 +19,7 @@ public class EventListenerConverter extends BaseConverter<EventListener> {
     }
 
     @Override
-        public EventListener convert(String label) {
+    public EventListener convert(String label) {
             switch (label.toLowerCase().trim()) {
             case "elapsed-line" : {
                 return new ElapsedLineOutputWriter();   

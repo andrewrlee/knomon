@@ -12,12 +12,12 @@ import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.Event.TickEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
-class Printer implements Action1<Event> {
+class EventProcessor implements Action1<Event> {
     private final PublishSubject<Integer> stopper;
     private final EventListenerAdapter eventListener;
     private long start = now(), processStart = now();
 
-    Printer(PublishSubject<Integer> stopper, EventListenerAdapter eventListener) {
+    EventProcessor(PublishSubject<Integer> stopper, EventListenerAdapter eventListener) {
         this.stopper = stopper;
         this.eventListener = eventListener;
         eventListener.onBeforeAll();

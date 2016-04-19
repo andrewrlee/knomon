@@ -16,16 +16,16 @@ import uk.co.optimisticpanda.jnomon.Event.QuitEvent;
 import uk.co.optimisticpanda.jnomon.formatter.EventListenerAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PrinterTest {
+public class EventprocessorTest {
 
     @Mock private EventListenerAdapter eventListener;
     private PublishSubject<Integer> stopper;
-    private Printer printer;
+    private EventProcessor eventProcessor;
 
     @Before
     public void setUp() throws Exception {
         stopper = PublishSubject.create();
-        printer = new Printer(stopper, eventListener);
+        eventProcessor = new EventProcessor(stopper, eventListener);
     }
 
     @Test
@@ -35,20 +35,20 @@ public class PrinterTest {
     
     @Test
     public void quitStepPublishesStopEvent() {
-        printer.call(new QuitEvent());
+        eventProcessor.call(new QuitEvent());
         verify(eventListener).onFinally(any(), any());
         assertThat(stopper.hasCompleted()).isTrue();
     }
 
     @Test
     public void handlesTickEvents() {
-        printer.call(new TickEventImpl(1L));
+        eventProcessor.call(new TickEventImpl(1L));
         verify(eventListener).onUpdate(any(), any());
     }
 
     @Test
     public void handlesLineEvents() {
-        printer.call(new LineEventImpl("A line"));
+        eventProcessor.call(new LineEventImpl("A line"));
         verify(eventListener).onLineStart(any(), any(), eq("A line"));
     }
 }
