@@ -14,7 +14,7 @@ Build and test by passing the -b flag to the `run-test` script:
 
 Any command line program can be piped through the executable. For instance, from the root project dir:
 
-  `mvn clean install | ./jnomon -m 200 -h 500`
+  `mvn clean install | ./target/jnomon -m 200 -h 500`
 
 ###Options:
 

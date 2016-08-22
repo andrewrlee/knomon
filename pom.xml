@@ -90,16 +90,32 @@
 				<configuration>
 					<excludes>
 						<exclude>uk/co/optimisticpanda/jnomon/Main*</exclude>
-                                                <exclude>uk/co/optimisticpanda/jnomon/LineEventImpl*</exclude>
+						<exclude>uk/co/optimisticpanda/jnomon/LineEventImpl*</exclude>
 						<exclude>uk/co/optimisticpanda/jnomon/TickEventImpl*</exclude>
-                                                <exclude>uk/co/optimisticpanda/jnomon/formatter/EventListener*</exclude>	
-				</excludes>
+						<exclude>uk/co/optimisticpanda/jnomon/formatter/EventListener*</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.skife.maven</groupId>
+				<artifactId>really-executable-jar-maven-plugin</artifactId>
+				<version>1.4.1</version>
+				<configuration>
+					<programFile>jnomon</programFile>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>	
+							<goal>really-executable-jar</goal>
 						</goals>
 					</execution>
 				</executions>
