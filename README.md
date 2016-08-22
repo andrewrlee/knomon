@@ -12,6 +12,8 @@ Build and test by passing the -b flag to the `run-test` script:
 
   `./run-test.sh -b`
 
+The self contained executable can then be found in: `./target/jnomon`
+
 Any command line program can be piped through the executable. For instance, from the root project dir:
 
   `mvn clean install | ./target/jnomon -m 200 -h 500`
