@@ -2,11 +2,11 @@
 
 Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](https://github.com/ReactiveX/RxJava) and [Immutables](http://immutables.github.io/).
 
-###Demo: 
+### Demo: 
 
 [![asciicast](https://asciinema.org/a/0o66a91aifh4fhlvhph2n0w7a.png)](https://asciinema.org/a/0o66a91aifh4fhlvhph2n0w7a)
 
-###Building/Running:
+### Building/Running:
 
 Build and test by passing the -b flag to the `run-test` script:
 
@@ -18,7 +18,7 @@ Any command line program can be piped through the executable. For instance, from
 
   `mvn clean install | ./target/jnomon -m 200 -h 500`
 
-###Options:
+### Options:
 
 This was an excuse to play with RxJava and as such only currently implements a subset of the gnomon switches. 
 All switches are optional and described below:
@@ -55,7 +55,7 @@ All switches are optional and described below:
   display the line until it's finished timing it.
 ```
 
-###Limitations:
+### Limitations:
 
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
  * Similarly, it won't detect that it has been piped to a non-tty env, so won't automatically disable the --real-time option. 
