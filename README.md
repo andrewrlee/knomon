@@ -1,6 +1,6 @@
-# jnomon [![Build Status](https://api.travis-ci.org/plasma147/jnomon.svg?branch=master)](https://travis-ci.org/plasma147/jnomon) [![Coverage Status](https://coveralls.io/repos/github/plasma147/jnomon/badge.svg?branch=master)](https://coveralls.io/github/plasma147/jnomon?branch=master)
+# knomon [![Build Status](https://api.travis-ci.org/plasma147/knomon.svg?branch=main)](https://travis-ci.org/plasma147/knomon) [![Coverage Status](https://coveralls.io/repos/github/plasma147/knomon/badge.svg?branch=master)](https://coveralls.io/github/plasma147/knomon?branch=main)
 
-Partial java port of [gnomon](https://github.com/paypal/gnomon) using [RxJava](https://github.com/ReactiveX/RxJava) and [Immutables](http://immutables.github.io/).
+Knomon port of jnomon (a partial java port of [gnomon](https://github.com/paypal/gnomon)) using [RxJava](https://github.com/ReactiveX/RxJava).
 
 ### Demo: 
 
@@ -12,15 +12,15 @@ Build and test by passing the -b flag to the `run-test` script:
 
   `./run-test.sh -b`
 
-The self contained executable can then be found in: `./target/jnomon`
+The self contained executable can then be found in: `./build/libs/knomon.jar`
 
 Any command line program can be piped through the executable. For instance, from the root project dir:
 
-  `mvn clean install | ./target/jnomon -m 200 -h 500`
+  `./gradlew clean build | java -jar build/libs/knomon.jar -h 2500 -m 1500 -r 10`
 
 ### Options:
 
-This was an excuse to play with RxJava and as such only currently implements a subset of the gnomon switches. 
+Only currently implements a subset of the gnomon switches. 
 All switches are optional and described below:
 
 ```
@@ -60,3 +60,14 @@ All switches are optional and described below:
  * Does not cope gracefully with long log lines: Gnomon uses node.js tty support to determine how big the current terminal is, but this is a bit more tricky in java
  * Similarly, it won't detect that it has been piped to a non-tty env, so won't automatically disable the --real-time option. 
  * Only tested to work on linux
+
+
+### Notes on port to kotlin
+
+* Moved to gradle
+* Moved to java 18
+* Ditched immutables (to avoid getting Immutables annotation processor working)
+* Updated Mockito as the old version is incompatible with later versions of java
+* Ditch really-executable-jar behaviour and add script and update running description. (There is an example of a "really executable" jar creation [here](https://github.com/pinterest/ktlint/pull/515/files))
+* Add fat jar gradle task
+* Remove code coverage

@@ -1,29 +1,30 @@
 package uk.co.optimisticpanda.jnomon.formatter;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static uk.co.optimisticpanda.jnomon.Utils.since;
-import static uk.co.optimisticpanda.jnomon.Utils.Colour.RED_FG;
-
-import java.io.PrintStream;
-import java.time.Instant;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
+import org.mockito.junit.MockitoJUnitRunner;
 import uk.co.optimisticpanda.jnomon.FixedClockRule;
+
+import java.io.PrintStream;
+import java.time.Instant;
+
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static uk.co.optimisticpanda.jnomon.Utils.Colour.RED_FG;
+import static uk.co.optimisticpanda.jnomon.Utils.since;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbsoluteOutputWriterTest {
 
-    @Rule public FixedClockRule clock = new FixedClockRule(Instant.parse("2007-12-03T10:15:30.00Z"));
-    @Mock private PrintStream printStream;
+    @Rule
+    public FixedClockRule clock = new FixedClockRule(Instant.parse("2007-12-03T10:15:30.00Z"));
+    @Mock
+    private PrintStream printStream;
     private AbsoluteOutputWriter outputWriter;
 
     @Before
@@ -38,7 +39,7 @@ public class AbsoluteOutputWriterTest {
         verify(printStream).println();
         verifyNoMoreInteractions(printStream);
     }
-    
+
     @Test
     public void onLineStart() {
         outputWriter.onLineStart(RED_FG, since(100L), since(200L), "This is the line");
@@ -46,14 +47,14 @@ public class AbsoluteOutputWriterTest {
         verify(printStream).println("                         [47m [0m This is the line");
         verifyNoMoreInteractions(printStream);
     }
-    
+
     @Test
     public void onUpdate() {
         outputWriter.onUpdate(RED_FG, since(100L), since(200L));
         verify(printStream).println("[1A\r" + RED_FG.colourize("    2007-12-03T10:15:30Z [47m [0m "));
         verifyNoMoreInteractions(printStream);
     }
-    
+
     @Test
     public void onLineEnd() {
         outputWriter.onLineEnd(since(100L), since(200L), "This is the line");
